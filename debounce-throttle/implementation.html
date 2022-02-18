@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      div {
+        width: 500px;
+        height: 500px;
+        background-color: cornflowerblue;
+        border: 1px solid rgb(0, 26, 255);
+        margin: auto;
+        text-align: center;
+        align-items: center;
+      }
+      h2 {
+        color: white;
+        vertical-align: middle;
+        font-size: 40px;
+        font-family: monospace;
+      }
+      body {
+        margin: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div onmousemove="showCounts()">
+      <h2 id="nCnt">Normal Count: 0</h2>
+      <h2 id="tCnt">Throttle Count: 0</h2>
+      <h2 id="dCnt">Debounce Count: 0</h2>
+    </div>
+    <script>
+      let nCnt = 0;
+      let tCnt = 0;
+      let dCnt = 0;
+      let nh2 = document.getElementById('nCnt');
+      let th2 = document.getElementById('tCnt');
+      let dh2 = document.getElementById('dCnt');
+      let fireThrottle = true;
+      let dTimer;
+
+      function showCounts() {
+        normalCount();
+        throttleCount();
+        debounceCount();
+      }
+
+      function normalCount() {
+        nCnt++;
+        nh2.innerHTML = 'Normal Count: ' + nCnt;
+      }
+
+      function throttleCount() {
+        if (fireThrottle === true) {
+          tCnt++;
+          th2.innerHTML = 'Throttle Count: ' + tCnt;
+          fireThrottle = false;
+          setTimeout(function () {
+            fireThrottle = true;
+          }, 200);
+        }
+      }
+
+      function debounceCount() {
+        window.clearInterval(dTimer);
+        dTimer = window.setTimeout(function () {
+          dCnt++;
+          dh2.innerHTML = 'Debounce Count: ' + dCnt;
+        }, 200);
+      }
+    </script>
+  </body>
+</html>
